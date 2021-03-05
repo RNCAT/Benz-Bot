@@ -23,7 +23,7 @@ for (const file of player) {
   client.player.on(file.split(".")[0], event.bind(null, client))
 }
 
-client.on('ready', async (client) => {
+client.on('ready', () => {
   console.log("Bot is running...")
   client.user.setActivity(client.config.discord.activity)
 })

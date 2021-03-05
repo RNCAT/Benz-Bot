@@ -1,7 +1,6 @@
 const Discord = require("discord.js")
 const fs = require("fs")
 const { Player } = require('discord-player')
-const events = fs.readdirSync('./events').filter(file => file.endsWith('.js'))
 const player = fs.readdirSync('./player').filter(file => file.endsWith('.js'))
 const client = new Discord.Client({ disableMentions: 'everyone' })
 
@@ -19,15 +18,15 @@ fs.readdirSync('./commands').forEach(dirs => {
   }
 })
 
-for (const file of events) {
-  const event = require(`./events/${file}`)
-  client.on(file.split(".")[0], event.bind(null, client))
-}
-
 for (const file of player) {
   const event = require(`./player/${file}`)
   client.player.on(file.split(".")[0], event.bind(null, client))
 }
+
+client.on('ready', async (client) => {
+  console.log("Bot is running...")
+  client.user.setActivity(client.config.discord.activity)
+})
 
 client.on('voiceStateUpdate', async (oldMember, newMember) => {
   let newUserChannel = newMember.channel
@@ -81,6 +80,21 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
   } else if(newUserChannel === null) {
     console.log(`${oldMember.member.displayName} has left ${oldUserChannel.guild.name} (${oldUserChannel.name})`)
   }
+})
+
+client.on('message', (client, message) => {
+  if (message.author.bot || message.channel.type === 'dm') return
+
+  const prefix = client.config.discord.prefix
+
+  if (message.content.indexOf(prefix) !== 0) return
+
+  const args = message.content.slice(prefix.length).trim().split(/ +/g)
+  const command = args.shift().toLowerCase()
+
+  const cmd = client.commands.get(command) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(command))
+
+  if (cmd) cmd.execute(client, message, args)
 })
 
 client.login(client.config.discord.token)

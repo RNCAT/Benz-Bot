@@ -82,7 +82,7 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
   }
 })
 
-client.on('message', (client, message) => {
+client.on('message', message => {
   if (message.author.bot || message.channel.type === 'dm') return
 
   const prefix = client.config.discord.prefix

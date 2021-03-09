@@ -43,7 +43,7 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
     ) {
       const connection = await newMember.member.voice.channel.join()
       const dispatcher = connection.play(
-        fs.createReadStream('./sound/kickOtherBot.ogg'),
+        fs.createReadStream('./sound/muteOtherBot.ogg'),
         { type: 'ogg/opus' }
       )
       dispatcher.on('start', () => {

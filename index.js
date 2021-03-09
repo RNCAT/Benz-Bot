@@ -56,7 +56,7 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
         client.channels.cache
           .get(textChannelObjs[0].id)
           .send(`พี่เบนซ์ได้ปิืดไมค์ ${newMember.member.displayName} แล้ว`)
-        newMember.setMute(ture)
+        newMember.setMute(true)
       })
       dispatcher.on('finish', () => {
         connection.disconnect()

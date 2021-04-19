@@ -20,6 +20,7 @@ module.exports = {
       const segmentURL = result.data.segments[0].stats
       const player = {
         name: result.data.platformInfo.platformUserHandle,
+        avatar: result.data.platformInfo.avatarUrl,
         timePlayed: segmentURL.timePlayed.displayValue,
         kills: segmentURL.kills.displayValue,
         deaths: segmentURL.deaths.displayValue,
@@ -33,6 +34,9 @@ module.exports = {
         embed: {
           title: 'CSGO Player Status',
           color: 'GREEN',
+          thumbnail: {
+            url: player.avatar,
+          },
           fields: [
             { name: 'ชื่อ', value: player.name, inline: true },
             { name: 'เวลาเล่นทั้งหมด', value: player.timePlayed, inline: true },
@@ -49,11 +53,21 @@ module.exports = {
     } catch (error) {
       message.channel.send({
         embed: {
-          title: 'ไปตั้ง steam profile เป็นสาธารณะมาก่อน',
+          title: 'ไปตั้ง steam profile เป็นสาธารณะก่อน',
           color: 'RED',
           image: {
             url:
               'https://cdn.discordapp.com/attachments/572050130199379979/833727594611736576/unknown.png',
+          },
+        },
+      })
+      message.channel.send({
+        embed: {
+          title: 'และสำหรับคนที่ใช้ username ไม่ได้ก็ให้ไปตั้งก่อน',
+          color: 'RED',
+          image: {
+            url:
+              'https://cdn.discordapp.com/attachments/810610042096713749/833742716789719040/Untitled.png',
           },
         },
       })

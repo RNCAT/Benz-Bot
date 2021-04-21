@@ -51,17 +51,17 @@ module.exports = {
         },
       })
     } catch (error) {
-      message.channel.send({
+      await message.channel.send({
         embed: {
           title: 'ไปตั้ง steam profile เป็นสาธารณะก่อน',
           color: 'RED',
           image: {
             url:
-              'https://cdn.discordapp.com/attachments/572050130199379979/833727594611736576/unknown.png',
+              'https://cdn.discordapp.com/attachments/810610042096713749/834282759701790720/public_profile.png',
           },
         },
       })
-      message.channel.send({
+      await message.channel.send({
         embed: {
           title: 'และสำหรับคนที่ใช้ username ไม่ได้ก็ให้ไปตั้งก่อน',
           color: 'RED',

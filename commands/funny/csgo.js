@@ -1,4 +1,4 @@
-const fetch = require('node-fetch')
+const axios = require('axios')
 module.exports = {
   name: 'csgo',
   description: 'check player status',
@@ -9,14 +9,12 @@ module.exports = {
     const url = `https://public-api.tracker.gg/v2/csgo/standard/profile/steam/${username}`
 
     try {
-      const csgo = await fetch(url, {
-        method: 'GET',
-        mode: 'cors',
+      const csgo = await axios.get(url, {
         headers: {
           'TRN-Api-Key': process.env.TRN_KEY,
         },
       })
-      const result = await csgo.json()
+      const result = csgo.data
       const segmentURL = result.data.segments[0].stats
       const player = {
         name: result.data.platformInfo.platformUserHandle,
@@ -53,17 +51,7 @@ module.exports = {
     } catch (error) {
       await message.channel.send({
         embed: {
-          title: 'ไปตั้ง steam profile เป็นสาธารณะก่อน',
-          color: 'RED',
-          image: {
-            url:
-              'https://cdn.discordapp.com/attachments/810610042096713749/834282759701790720/public_profile.png',
-          },
-        },
-      })
-      await message.channel.send({
-        embed: {
-          title: 'และสำหรับคนที่ใช้ username ไม่ได้ก็ให้ไปตั้งก่อน',
+          title: 'คนที่ใช้ username ไม่ได้ก็ให้ไปตั้งก่อน',
           color: 'RED',
           image: {
             url:

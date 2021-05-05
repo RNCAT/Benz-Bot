@@ -1,6 +1,7 @@
 const Discord = require('discord.js')
 const fs = require('fs')
 const { Player } = require('discord-player')
+
 const player = fs.readdirSync('./player').filter((file) => file.endsWith('.js'))
 const client = new Discord.Client({ disableMentions: 'everyone' })
 
@@ -65,7 +66,7 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
     } else if (newMember.member.id === '504627010568585216') {
       const connection = await newMember.member.voice.channel.join()
       const dispatcher = connection.play(
-        fs.createReadStream('./sound/benz_op1.ogg'),
+        fs.createReadStream('./sound/benz_op.ogg'),
         { type: 'ogg/opus' }
       )
       dispatcher.on('start', () => {
@@ -86,7 +87,7 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
     } else if (newMember.member.id === '577116592886775829') {
       const connection = await newMember.member.voice.channel.join()
       const dispatcher = connection.play(
-        fs.createReadStream('./sound/benz_op3.ogg'),
+        fs.createReadStream('./sound/earth_op.ogg'),
         { type: 'ogg/opus' }
       )
       dispatcher.on('start', () => {

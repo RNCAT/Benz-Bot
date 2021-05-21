@@ -2,6 +2,9 @@ require('dotenv').config()
 const Discord = require('discord.js')
 const fs = require('fs')
 const { Player } = require('discord-player')
+const sqlite = require('sqlite')
+const sqlite3 = require('sqlite3').verbose()
+const ytdl = require('ytdl-core')
 
 const player = fs.readdirSync('./player').filter((file) => file.endsWith('.js'))
 const client = new Discord.Client({ disableMentions: 'everyone' })
@@ -33,8 +36,17 @@ client.on('ready', () => {
 })
 
 client.on('voiceStateUpdate', async (oldMember, newMember) => {
+  const db = await sqlite.open({
+    filename: './userSong.db',
+    driver: sqlite3.Database,
+  })
+
+  const users = await db.all('SELECT user_id FROM song')
+  const found = users.some((el) => el.user_id === newMember.member.id)
+
   let newUserChannel = newMember.channel
   let oldUserChannel = oldMember.channel
+
   if (oldUserChannel === null && newUserChannel !== null) {
     console.log(
       `${newMember.member.displayName} has joined  ${newUserChannel.guild.name} (${newUserChannel.name})`
@@ -63,43 +75,26 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
       dispatcher.on('finish', () => {
         connection.disconnect()
       })
-      dispatcher.on('error', console.error)
-    } else if (newMember.member.id === '504627010568585216') {
-      const connection = await newMember.member.voice.channel.join()
-      const dispatcher = connection.play(
-        fs.createReadStream('./sound/benz_op.ogg'),
-        { type: 'ogg/opus' }
+      dispatcher.on('error', () => {
+        console.error
+        connection.disconnect()
+      })
+    } else if (found) {
+      const result = await db.get(
+        `SELECT song_url FROM song WHERE user_id = ${newMember.member.id}`
       )
+      const connection = await newUserChannel.join()
+      const stream = ytdl(result.song_url)
+      const dispatcher = connection.play(stream)
 
       dispatcher.on('finish', () => {
         connection.disconnect()
       })
 
-      dispatcher.on('error', console.error)
-    } else if (newMember.member.id === '577116592886775829') {
-      const connection = await newMember.member.voice.channel.join()
-      const dispatcher = connection.play(
-        fs.createReadStream('./sound/earth_op.ogg'),
-        { type: 'ogg/opus' }
-      )
-
-      dispatcher.on('finish', () => {
+      dispatcher.on('error', () => {
+        console.error
         connection.disconnect()
       })
-
-      dispatcher.on('error', console.error)
-    } else if (newMember.member.id === '520550786837643275') {
-      const connection = await newMember.member.voice.channel.join()
-      const dispatcher = connection.play(
-        fs.createReadStream('./sound/ohm_op.ogg'),
-        { type: 'ogg/opus' }
-      )
-
-      dispatcher.on('finish', () => {
-        connection.disconnect()
-      })
-
-      dispatcher.on('error', console.error)
     }
   } else if (newUserChannel === null) {
     console.log(

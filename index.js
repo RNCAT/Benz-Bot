@@ -69,20 +69,11 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
         fs.createReadStream('./sound/benz_op.ogg'),
         { type: 'ogg/opus' }
       )
-      dispatcher.on('start', () => {
-        let textChannelObjs = []
-        newUserChannel.guild.channels.cache.forEach((element) => {
-          if (element.type === 'text') {
-            textChannelObjs.push(element)
-          }
-        })
-        client.channels.cache
-          .get(textChannelObjs[0].id)
-          .send('พี่เบนซ์ได้เข้ามาในดิสแล้ว จงสรรเสริญ')
-      })
+
       dispatcher.on('finish', () => {
         connection.disconnect()
       })
+
       dispatcher.on('error', console.error)
     } else if (newMember.member.id === '577116592886775829') {
       const connection = await newMember.member.voice.channel.join()
@@ -90,20 +81,11 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
         fs.createReadStream('./sound/earth_op.ogg'),
         { type: 'ogg/opus' }
       )
-      dispatcher.on('start', () => {
-        let textChannelObjs = []
-        newUserChannel.guild.channels.cache.forEach((element) => {
-          if (element.type === 'text') {
-            textChannelObjs.push(element)
-          }
-        })
-        client.channels.cache
-          .get(textChannelObjs[0].id)
-          .send('น้องเอิร์ทได้เข้ามาในดิสแล้ว')
-      })
+
       dispatcher.on('finish', () => {
         connection.disconnect()
       })
+
       dispatcher.on('error', console.error)
     } else if (newMember.member.id === '520550786837643275') {
       const connection = await newMember.member.voice.channel.join()
@@ -111,37 +93,13 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
         fs.createReadStream('./sound/ohm_op.ogg'),
         { type: 'ogg/opus' }
       )
-      dispatcher.on('start', () => {
-        let textChannelObjs = []
-        newUserChannel.guild.channels.cache.forEach((element) => {
-          if (element.type === 'text') {
-            textChannelObjs.push(element)
-          }
-        })
-        client.channels.cache
-          .get(textChannelObjs[0].id)
-          .send('น้องโอมได้เข้ามาในดิสแล้ว')
-      })
+
       dispatcher.on('finish', () => {
         connection.disconnect()
       })
+
       dispatcher.on('error', console.error)
     }
-    // else {
-    //   let current = new Date()
-    //   let Start = new Date()
-    //   Start.setHours(22, 30, 0)
-    //   if (current >= Start) {
-    //     const connection = await newMember.member.voice.channel.join()
-    //     const dispatcher = connection.play(
-    //       fs.createReadStream('./sound/sleep.ogg'),
-    //       { type: 'ogg/opus' }
-    //     )
-    //     dispatcher.on('finish', () => {
-    //       connection.disconnect()
-    //     })
-    //   }
-    // }
   } else if (newUserChannel === null) {
     console.log(
       `${oldMember.member.displayName} has left ${oldUserChannel.guild.name} (${oldUserChannel.name})`

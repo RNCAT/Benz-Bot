@@ -84,7 +84,7 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
         `SELECT song_url FROM song WHERE user_id = ${newMember.member.id}`
       )
       const connection = await newUserChannel.join()
-      const stream = ytdl(result.song_url)
+      const stream = await ytdl(result.song_url, { quality: 'highestaudio' })
       const dispatcher = connection.play(stream)
 
       dispatcher.on('finish', () => {

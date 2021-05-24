@@ -1,10 +1,12 @@
 require('dotenv').config()
+
 const Discord = require('discord.js')
-const fs = require('fs')
 const { Player } = require('discord-player')
 const sqlite = require('sqlite')
 const sqlite3 = require('sqlite3').verbose()
-const ytdl = require('ytdl-core')
+const ytdl = require('ytdl-core-discord')
+
+const fs = require('fs')
 
 const player = fs.readdirSync('./player').filter((file) => file.endsWith('.js'))
 const client = new Discord.Client({ disableMentions: 'everyone' })
@@ -42,7 +44,7 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
   })
 
   const users = await db.all('SELECT user_id FROM song')
-  const found = users.some((el) => el.user_id === newMember.member.id)
+  const hasOP = users.some((el) => el.user_id === newMember.member.id)
 
   let newUserChannel = newMember.channel
   let oldUserChannel = oldMember.channel
@@ -79,13 +81,18 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
         console.error
         connection.disconnect()
       })
-    } else if (found) {
+    } else if (hasOP) {
       const result = await db.get(
         `SELECT song_url FROM song WHERE user_id = ${newMember.member.id}`
       )
       const connection = await newUserChannel.join()
-      const stream = await ytdl(result.song_url, { quality: 'highestaudio' })
-      const dispatcher = connection.play(stream)
+      const stream = ytdl(result.song_url, {
+        quality: 'highestaudio',
+        opusEncoded: true,
+      })
+      const dispatcher = connection.play(await stream, {
+        type: 'opus',
+      })
 
       dispatcher.on('finish', () => {
         connection.disconnect()

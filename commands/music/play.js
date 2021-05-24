@@ -1,4 +1,3 @@
-const fs = require('fs')
 module.exports = {
   name: 'play',
   aliases: ['p'],
@@ -26,17 +25,23 @@ module.exports = {
 
     if (args.join(' ') === 'ปีศาจ') {
       const connection = await message.member.voice.channel.join()
-      const stream = await ytdl('https://youtu.be/m-UOS4B642w', {
+      const stream = ytdl('https://youtu.be/m-UOS4B642w', {
         quality: 'highestaudio',
+        opusEncoded: true,
       })
-      const dispatcher = connection.play(stream)
+      const dispatcher = connection.play(await stream, {
+        type: 'opus',
+      })
+
       dispatcher.on('start', () => {
         message.channel.send('พี่เบนซ์กำลังร้องเพลงปีศาจ')
       })
+
       dispatcher.on('finish', () => {
         message.channel.send('พี่เบนซ์กำลังร้องเพลงจบแล้ว')
         connection.disconnect()
       })
+
       dispatcher.on('error', console.error)
     } else {
       client.player.play(message, args.join(' '), { firstResult: true })

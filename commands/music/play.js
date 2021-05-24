@@ -26,10 +26,10 @@ module.exports = {
 
     if (args.join(' ') === 'ปีศาจ') {
       const connection = await message.member.voice.channel.join()
-      const dispatcher = connection.play(
-        fs.createReadStream('./sound/cover.ogg'),
-        { type: 'ogg/opus' }
-      )
+      const stream = await ytdl('https://youtu.be/m-UOS4B642w', {
+        quality: 'highestaudio',
+      })
+      const dispatcher = connection.play(stream)
       dispatcher.on('start', () => {
         message.channel.send('พี่เบนซ์กำลังร้องเพลงปีศาจ')
       })

@@ -37,13 +37,29 @@ module.exports = {
           },
           fields: [
             { name: 'ชื่อ', value: player.name, inline: true },
-            { name: 'เวลาเล่นทั้งหมด', value: player.timePlayed, inline: true },
+            {
+              name: 'เวลาเล่นทั้งหมด',
+              value: player.timePlayed,
+              inline: true,
+            },
             { name: 'ความแม่น', value: player.shotsAccuracy },
             { name: 'Kills', value: player.kills, inline: true },
             { name: 'Deaths', value: player.deaths, inline: true },
-            { name: 'Headshots', value: player.headshots, inline: true },
-            { name: 'วางระเบิด', value: player.bombsPlanted, inline: true },
-            { name: 'กู้ระเบิด', value: player.bombsDefused, inline: true },
+            {
+              name: 'Headshots',
+              value: player.headshots,
+              inline: true,
+            },
+            {
+              name: 'วางระเบิด',
+              value: player.bombsPlanted,
+              inline: true,
+            },
+            {
+              name: 'กู้ระเบิด',
+              value: player.bombsDefused,
+              inline: true,
+            },
             { name: 'MVP', value: player.mvp, inline: true },
           ],
         },
@@ -54,8 +70,7 @@ module.exports = {
           title: 'คนที่ใช้ username ไม่ได้ก็ให้ไปตั้งก่อน',
           color: 'RED',
           image: {
-            url:
-              'https://cdn.discordapp.com/attachments/810610042096713749/833742716789719040/Untitled.png',
+            url: 'https://cdn.discordapp.com/attachments/810610042096713749/833742716789719040/Untitled.png',
           },
         },
       })

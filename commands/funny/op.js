@@ -27,7 +27,8 @@ module.exports = {
       )
     }
 
-    message.channel.send({
+    const user = client.users.cache.get(userID)
+    user.send({
       embed: {
         description: `${client.emotes.success} - พี่เบนซ์เซ็ทเพลงเปิดตัวให้แล้ว !`,
       },

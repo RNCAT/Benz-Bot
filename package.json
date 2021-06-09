@@ -1,10 +1,10 @@
 {
   "name": "benz-bot",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Discord bot for funny",
-  "main": "index.js",
   "repository": "https://github.com/RNCAT/Benz-Bot.git",
   "author": "RNCAT <jaruwat.works@gmail.com>",
+  "main": "index.js",
   "license": "MIT",
   "dependencies": {
     "@discordjs/opus": "^0.5.0",
@@ -17,9 +17,15 @@
     "simple-gacha": "^1.1.2",
     "sqlite": "^4.0.23",
     "sqlite3": "^5.0.2",
+    "wokcommands": "^1.3.6",
     "ytdl-core-discord": "^1.3.0"
   },
   "devDependencies": {
-    "prettier": "2.3.0"
+    "nodemon": "^2.0.7",
+    "prettier": "^2.3.1"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon"
   }
 }

@@ -11,8 +11,6 @@ const client = new Discord.Client()
 client.player = new Player(client)
 
 client.on('ready', async () => {
-  const commands = await client.api.applications(client.user.id).commands.get()
-  console.log(commands)
   new WOKCommands(client, {
     commandsDir: 'commands',
     showWarns: false,

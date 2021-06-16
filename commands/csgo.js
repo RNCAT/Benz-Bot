@@ -10,10 +10,10 @@ module.exports = {
   callback: async ({ args }) => {
     const steamID = args[0]
     const URL = `https://public-api.tracker.gg/v2/csgo/standard/profile/steam/${steamID}`
-
+    const APIKEY = process.env.TRN_KEY
     const csgo = await axios.get(URL, {
       headers: {
-        'TRN-Api-Key': process.env.TRN_TOKEN,
+        'TRN-Api-Key': APIKEY,
       },
     })
 

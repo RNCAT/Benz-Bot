@@ -1,3 +1,4 @@
+require('dotenv').config()
 const axios = require('axios')
 const { MessageEmbed } = require('discord.js')
 
@@ -6,7 +7,7 @@ module.exports = {
   description: 'ตรวจสอบสถานะเกม CSGO',
   minArgs: 1,
   expectedArgs: '<steam_id>',
-  callback: async ({ message, args }) => {
+  callback: async ({ args }) => {
     const steamID = args[0]
     const URL = `https://public-api.tracker.gg/v2/csgo/standard/profile/steam/${steamID}`
 

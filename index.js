@@ -16,6 +16,16 @@ client.on('ready', async () => {
     commandsDir: 'commands',
     showWarns: false,
   })
+
+  client.user.setPresence({
+    activity: {
+      name: '\nดูคำสั่งทั้งหมดพิมพ์ / ในแช็ต\nhttps://bot.rennycat.work',
+      type: 'PLAYING',
+      url: 'https://www.youtube.com/watch?v=m-UOS4B642w',
+    },
+    afk: false,
+    status: 'online',
+  })
 })
 
 client.on('voiceStateUpdate', async (oldMember, newMember) => {

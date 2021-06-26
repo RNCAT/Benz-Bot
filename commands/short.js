@@ -1,6 +1,7 @@
 require('dotenv').config()
 const axios = require('axios')
 const { MessageEmbed } = require('discord.js')
+const env = require('../config')
 
 module.exports = {
   slash: true,
@@ -17,7 +18,7 @@ module.exports = {
       {
         headers: {
           'Content-Type': 'application/json',
-          apikey: process.env.REBRANDLY_TOKEN,
+          apikey: env.REBRANDLY_TOKEN,
         },
       }
     )

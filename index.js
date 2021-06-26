@@ -6,6 +6,7 @@ const ytdl = require('ytdl-core-discord')
 const WOKCommands = require('wokcommands')
 const sqlite = require('sqlite')
 const sqlite3 = require('sqlite3').verbose()
+const env = require('./config')
 
 const client = new Discord.Client()
 client.player = new Player(client)
@@ -63,4 +64,4 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
   }
 })
 
-client.login(process.env.DISCORD_TOKEN)
+client.login(env.DISCORD_TOKEN)

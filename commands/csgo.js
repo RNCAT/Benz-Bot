@@ -1,6 +1,7 @@
 require('dotenv').config()
 const axios = require('axios')
 const { MessageEmbed } = require('discord.js')
+const env = require('../config')
 
 module.exports = {
   slash: true,
@@ -10,10 +11,9 @@ module.exports = {
   callback: async ({ args }) => {
     const steamID = args[0]
     const URL = `https://public-api.tracker.gg/v2/csgo/standard/profile/steam/${steamID}`
-    const APIKEY = process.env.TRN_KEY
     const csgo = await axios.get(URL, {
       headers: {
-        'TRN-Api-Key': APIKEY,
+        'TRN-Api-Key': env.TRN_TOKEN,
       },
     })
 

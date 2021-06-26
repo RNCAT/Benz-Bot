@@ -12,3 +12,7 @@ logs/
 .idea/
 docs/docs.json
 typings/index.js
+.DS_Store
+
+# Environments
+.env

@@ -1,7 +1,6 @@
 const axios = require('axios')
 const NSFW = require('discord-nsfw')
 const gacha = require('simple-gacha')
-const nsfw = new NSFW()
 const { MessageEmbed } = require('discord.js')
 
 module.exports = {
@@ -11,29 +10,30 @@ module.exports = {
     const lootTable = [
       {
         name: 'puppy',
-        weight: 3,
-      },
-      {
-        name: 'nekopussy',
-        weight: 1,
+        weight: 2,
       },
       {
         name: 'pgif',
         weight: 1,
       },
     ]
+    const dogURL = `https://dog.ceo/api/breeds/image/random`
+    const nsfw = new NSFW()
     const { pick } = await gacha.simple(lootTable)
-    let isLucky = pick.name === 'puppy'
-    const puppyURL = await axios.get(`https://dog.ceo/api/breeds/image/random`)
-    const image = isLucky
-      ? puppyURL.data.message
-      : pick.name === 'nekopussy'
-      ? await nsfw.nekopussy()
-      : await nsfw.pgif()
+    const isLucky = pick.name === 'puppy'
+
+    const puppy = async () => {
+      const { data } = await axios.get(dogURL)
+      return data.message
+    }
+
+    const title = isLucky ? '' : 'ผิด ๆ ตอนนี้ระบบกำลังบัค โทษทีนะหนุ่ม'
+    const image = isLucky ? puppy() : nsfw.pgif()
+    const color = isLucky ? 'GREEN' : 'RED'
 
     const embed = new MessageEmbed()
-      .setTitle(isLucky ? '' : 'ผิด ๆ ตอนนี้ระบบกำลังบัค โทษทีนะหนุ่ม')
-      .setColor(isLucky ? 'GREEN' : 'RED')
+      .setTitle(title)
+      .setColor(color)
       .setImage(image)
 
     return embed

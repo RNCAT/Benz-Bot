@@ -4,8 +4,7 @@ const Discord = require('discord.js')
 const { Player } = require('discord-player')
 const ytdl = require('ytdl-core-discord')
 const WOKCommands = require('wokcommands')
-const sqlite = require('sqlite')
-const sqlite3 = require('sqlite3').verbose()
+const fs = require('fs')
 const { env, presence, playerOptions } = require('./config')
 
 const client = new Discord.Client()
@@ -27,13 +26,9 @@ client.on('ready', async () => {
 })
 
 client.on('voiceStateUpdate', async (oldMember, newMember) => {
-  const db = await sqlite.open({
-    filename: './userSong.db',
-    driver: sqlite3.Database,
-  })
-
-  const users = await db.all('SELECT user_id FROM song')
-  const hasOP = users.some((el) => el.user_id === newMember.member.id)
+  const opening = fs.readFileSync('./opening.json', 'utf-8')
+  let openingData = JSON.parse(opening)
+  const memberSong = openingData[`${newMember.member.id}`]
 
   let newUserChannel = newMember.channel
   let oldUserChannel = oldMember.channel
@@ -42,13 +37,9 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
     console.log(
       `${newMember.member.displayName} has joined  ${newUserChannel.guild.name} (${newUserChannel.name})`
     )
-    if (hasOP) {
-      const result = await db.get(
-        `SELECT song_url FROM song WHERE user_id = ${newMember.member.id}`
-      )
-
+    if (memberSong) {
       const connection = await newUserChannel.join()
-      const stream = ytdl(result.song_url, {
+      const stream = ytdl(memberSong, {
         quality: 'highestaudio',
         opusEncoded: true,
       })
@@ -57,11 +48,6 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
       })
 
       dispatcher.on('finish', () => {
-        connection.disconnect()
-      })
-
-      dispatcher.on('error', () => {
-        console.error
         connection.disconnect()
       })
     }

@@ -6,10 +6,16 @@ const ytdl = require('ytdl-core-discord')
 const WOKCommands = require('wokcommands')
 const sqlite = require('sqlite')
 const sqlite3 = require('sqlite3').verbose()
-const env = require('./config')
+const { env, presence, playerOptions } = require('./config')
 
 const client = new Discord.Client()
-client.player = new Player(client)
+client.player = new Player(client, playerOptions)
+
+client.player.on('trackStart', (message, track) => {
+  message.channel.send(
+    `:white_check_mark: พี่เบนซ์กำลังเปิดเพลง ${track.title}...`
+  )
+})
 
 client.on('ready', async () => {
   new WOKCommands(client, {
@@ -17,15 +23,7 @@ client.on('ready', async () => {
     showWarns: false,
   })
 
-  client.user.setPresence({
-    activity: {
-      name: '\nดูคำสั่งทั้งหมดพิมพ์ / ในแช็ต\nhttps://bot.rennycat.work',
-      type: 'PLAYING',
-      url: 'https://www.youtube.com/watch?v=m-UOS4B642w',
-    },
-    afk: false,
-    status: 'online',
-  })
+  client.user.setPresence(presence)
 })
 
 client.on('voiceStateUpdate', async (oldMember, newMember) => {

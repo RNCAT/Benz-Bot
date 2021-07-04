@@ -1,32 +1,19 @@
-const sqlite = require('sqlite')
-const sqlite3 = require('sqlite3').verbose()
-
+const fs = require('fs')
 module.exports = {
   slash: true,
   description: 'เปลี่ยนเพลงเปิดตัว',
   minArgs: 1,
-  expectedArgs: '<song_url>',
+  expectedArgs: '<youtube_url>',
   callback: async ({ args, interaction }) => {
     const songURL = args[0]
-    const db = await sqlite.open({
-      filename: './userSong.db',
-      driver: sqlite3.Database,
-    })
-
     const userID = interaction.member.user.id
+    const opening = fs.readFileSync('./opening.json', 'utf-8')
 
-    const users = await db.all('SELECT user_id FROM song')
-    const found = users.some((el) => el.user_id === userID)
+    let openingData = JSON.parse(opening)
 
-    if (found) {
-      await db.run(
-        `UPDATE song SET song_url = '${songURL}' WHERE user_id = '${userID}'`
-      )
-    } else {
-      await db.run(
-        `INSERT INTO song(user_id, song_url) VALUES ('${userID}', '${songURL}')`
-      )
-    }
+    openingData[`${userID}`] = songURL
+
+    fs.writeFileSync('./opening.json', JSON.stringify(openingData))
 
     return ':white_check_mark: พี่เบนซ์เซ็ทเพลงเปิดตัวให้แล้ว !'
   },

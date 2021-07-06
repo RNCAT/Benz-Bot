@@ -11,57 +11,55 @@ module.exports = {
   callback: async ({ args }) => {
     const steamID = args[0]
     const URL = `https://public-api.tracker.gg/v2/csgo/standard/profile/steam/${steamID}`
-    const csgo = await axios.get(URL, {
+
+    const { data } = await axios.get(URL, {
       headers: {
         'TRN-Api-Key': env.TRN_TOKEN,
       },
     })
 
-    const result = csgo.data
-    const segmentURL = result.data.segments[0].stats
-    const player = {
-      name: result.data.platformInfo.platformUserHandle,
-      avatar: result.data.platformInfo.avatarUrl,
-      timePlayed: segmentURL.timePlayed.displayValue,
-      kills: segmentURL.kills.displayValue,
-      deaths: segmentURL.deaths.displayValue,
-      headshots: segmentURL.headshots.displayValue,
-      shotsAccuracy: segmentURL.shotsAccuracy.displayValue,
-      bombsPlanted: segmentURL.bombsPlanted.displayValue,
-      bombsDefused: segmentURL.bombsDefused.displayValue,
-      mvp: segmentURL.mvp.displayValue,
-    }
+    const { platformInfo, segments } = data
+    const {
+      timePlayed,
+      kills,
+      deaths,
+      headshots,
+      shotsAccuracy,
+      bombsPlanted,
+      bombsDefused,
+      mvp,
+    } = segments[0].stats
 
     const embed = new MessageEmbed()
       .setTitle('CSGO Player Status')
       .setColor('GREEN')
-      .setThumbnail(player.avatar)
+      .setThumbnail(platformInfo.avatarUrl)
       .addFields([
-        { name: 'ชื่อ', value: player.name, inline: true },
+        { name: 'ชื่อ', value: platformInfo.platformUserHandle, inline: true },
         {
           name: 'เวลาเล่นทั้งหมด',
-          value: player.timePlayed,
+          value: timePlayed.displayValue,
           inline: true,
         },
-        { name: 'ความแม่น', value: player.shotsAccuracy },
-        { name: 'Kills', value: player.kills, inline: true },
-        { name: 'Deaths', value: player.deaths, inline: true },
+        { name: 'ความแม่น', value: shotsAccuracy.displayValue },
+        { name: 'Kills', value: kills.displayValue, inline: true },
+        { name: 'Deaths', value: deaths.displayValue, inline: true },
         {
           name: 'Headshots',
-          value: player.headshots,
+          value: headshots.displayValue,
           inline: true,
         },
         {
           name: 'วางระเบิด',
-          value: player.bombsPlanted,
+          value: bombsPlanted.displayValue,
           inline: true,
         },
         {
           name: 'กู้ระเบิด',
-          value: player.bombsDefused,
+          value: bombsDefused.displayValue,
           inline: true,
         },
-        { name: 'MVP', value: player.mvp, inline: true },
+        { name: 'MVP', value: mvp.displayValue, inline: true },
       ])
 
     return embed

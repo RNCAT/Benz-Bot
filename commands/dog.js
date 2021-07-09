@@ -28,7 +28,7 @@ module.exports = {
     }
 
     const title = isLucky ? '' : 'ผิด ๆ ตอนนี้ระบบกำลังบัค โทษทีนะหนุ่ม'
-    const image = isLucky ? puppy() : nsfw.pgif()
+    const image = isLucky ? await puppy() : await nsfw.pgif()
     const color = isLucky ? 'GREEN' : 'RED'
 
     const embed = new MessageEmbed()

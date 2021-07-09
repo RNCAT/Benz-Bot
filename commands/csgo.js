@@ -1,7 +1,7 @@
 require('dotenv').config()
 const axios = require('axios')
 const { MessageEmbed } = require('discord.js')
-const env = require('../config')
+const { env } = require('../config')
 
 module.exports = {
   slash: true,
@@ -18,7 +18,7 @@ module.exports = {
       },
     })
 
-    const { platformInfo, segments } = data
+    const { platformInfo, segments } = data.data
     const {
       timePlayed,
       kills,

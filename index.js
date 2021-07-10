@@ -23,21 +23,22 @@ client.player.on('queueEnd', (queue) => {
 })
 
 client.on('ready', async () => {
-  new WOKCommands(client, {
-    commandsDir: 'commands',
-    showWarns: false,
+  const wokCommands = new WOKCommands(client, {
+    commandsDir: 'commands'
   })
+
+  wokCommands.showWarns = false
 
   client.user.setPresence(presence)
 })
 
 client.on('voiceStateUpdate', async (oldMember, newMember) => {
   const opening = fs.readFileSync('./opening.json', 'utf-8')
-  let openingData = JSON.parse(opening)
+  const openingData = JSON.parse(opening)
   const memberSong = openingData[`${newMember.member.id}`]
 
-  let newUserChannel = newMember.channel
-  let oldUserChannel = oldMember.channel
+  const newUserChannel = newMember.channel
+  const oldUserChannel = oldMember.channel
 
   if (oldUserChannel === null && newUserChannel !== null) {
     console.log(
@@ -47,10 +48,10 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
       const connection = await newUserChannel.join()
       const stream = ytdl(memberSong, {
         quality: 'highestaudio',
-        opusEncoded: true,
+        opusEncoded: true
       })
       const dispatcher = connection.play(await stream, {
-        type: 'opus',
+        type: 'opus'
       })
 
       dispatcher.on('finish', () => {

@@ -10,5 +10,5 @@ module.exports = {
     const embed = new MessageEmbed().setImage(file)
 
     return embed
-  },
+  }
 }

@@ -15,12 +15,12 @@ module.exports = {
 
     const searchResult = await client.player
       .search(args[0], {
-        requestedBy: interaction.member.user,
+        requestedBy: interaction.member.user
       })
       .catch(() => {})
 
-    let queue = client.player.createQueue(guild, {
-      metadata: textChannel,
+    const queue = client.player.createQueue(guild, {
+      metadata: textChannel
     })
 
     if (!queue.connection) await queue.connect(channel)
@@ -30,5 +30,5 @@ module.exports = {
     if (!queue.playing) await queue.play()
 
     return `✅ | พี่เบนซ์เพิ่มเพลง **${searchResult.tracks[0].title}** ให้แล้ว !`
-  },
+  }
 }

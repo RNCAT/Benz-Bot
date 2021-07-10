@@ -14,8 +14,8 @@ module.exports = {
 
     const { data } = await axios.get(URL, {
       headers: {
-        'TRN-Api-Key': env.TRN_TOKEN,
-      },
+        'TRN-Api-Key': env.TRN_TOKEN
+      }
     })
 
     const { platformInfo, segments } = data.data
@@ -27,7 +27,7 @@ module.exports = {
       shotsAccuracy,
       bombsPlanted,
       bombsDefused,
-      mvp,
+      mvp
     } = segments[0].stats
 
     const embed = new MessageEmbed()
@@ -39,7 +39,7 @@ module.exports = {
         {
           name: 'เวลาเล่นทั้งหมด',
           value: timePlayed.displayValue,
-          inline: true,
+          inline: true
         },
         { name: 'ความแม่น', value: shotsAccuracy.displayValue },
         { name: 'Kills', value: kills.displayValue, inline: true },
@@ -47,21 +47,21 @@ module.exports = {
         {
           name: 'Headshots',
           value: headshots.displayValue,
-          inline: true,
+          inline: true
         },
         {
           name: 'วางระเบิด',
           value: bombsPlanted.displayValue,
-          inline: true,
+          inline: true
         },
         {
           name: 'กู้ระเบิด',
           value: bombsDefused.displayValue,
-          inline: true,
+          inline: true
         },
-        { name: 'MVP', value: mvp.displayValue, inline: true },
+        { name: 'MVP', value: mvp.displayValue, inline: true }
       ])
 
     return embed
-  },
+  }
 }

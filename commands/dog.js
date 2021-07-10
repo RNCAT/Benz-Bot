@@ -10,14 +10,14 @@ module.exports = {
     const lootTable = [
       {
         name: 'puppy',
-        weight: 2,
+        weight: 2
       },
       {
         name: 'pgif',
-        weight: 1,
-      },
+        weight: 1
+      }
     ]
-    const dogURL = `https://dog.ceo/api/breeds/image/random`
+    const dogURL = 'https://dog.ceo/api/breeds/image/random'
     const nsfw = new NSFW()
     const { pick } = await gacha.simple(lootTable)
     const isLucky = pick.name === 'puppy'
@@ -37,5 +37,5 @@ module.exports = {
       .setImage(image)
 
     return embed
-  },
+  }
 }

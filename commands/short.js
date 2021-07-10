@@ -13,13 +13,13 @@ module.exports = {
     const result = await axios.post(
       'https://api.rebrandly.com/v1/links',
       JSON.stringify({
-        destination: longURL,
+        destination: longURL
       }),
       {
         headers: {
           'Content-Type': 'application/json',
-          apikey: env.REBRANDLY_TOKEN,
-        },
+          apikey: env.REBRANDLY_TOKEN
+        }
       }
     )
     const { shortUrl } = result.data
@@ -28,5 +28,5 @@ module.exports = {
       .addField('ลิงค์ที่ย่อ', `https://${shortUrl}`)
 
     return embed
-  },
+  }
 }

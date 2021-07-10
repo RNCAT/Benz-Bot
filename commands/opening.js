@@ -9,12 +9,12 @@ module.exports = {
     const userID = interaction.member.user.id
     const opening = fs.readFileSync('./opening.json', 'utf-8')
 
-    let openingData = JSON.parse(opening)
+    const openingData = JSON.parse(opening)
 
     openingData[`${userID}`] = songURL
 
     fs.writeFileSync('./opening.json', JSON.stringify(openingData))
 
     return ':white_check_mark: พี่เบนซ์เซ็ทเพลงเปิดตัวให้แล้ว !'
-  },
+  }
 }

@@ -14,21 +14,21 @@ module.exports = {
 
     const result = await axios.post(env.PROMPTPAY_URL, {
       promptpay_id: number,
-      amount: amount,
+      amount: amount
     })
     const { PromptPay } = result.data
 
     const image = await toBuffer(PromptPay)
 
-    let attach = new MessageAttachment()
+    const attach = new MessageAttachment()
     attach.setFile(image)
 
     const embed = new MessageEmbed({
-      description: `เลขพร้อมเพย์ : ${number}\nจำนวนเงิน : ${amount}`,
+      description: `เลขพร้อมเพย์ : ${number}\nจำนวนเงิน : ${amount}`
     })
 
     await channel.send(attach)
 
     return embed
-  },
+  }
 }

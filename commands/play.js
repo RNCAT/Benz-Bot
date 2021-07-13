@@ -3,7 +3,7 @@ module.exports = {
   description: 'เล่นเพลง',
   minArgs: 1,
   expectedArgs: '<youtube_url>',
-  callback: async ({ args, client, interaction, message }) => {
+  callback: async ({ args, client, interaction }) => {
     const guild = await client.guilds.cache.get(`${interaction.guild_id}`)
     const member = await guild.members.cache.get(
       `${interaction.member.user.id}`
@@ -11,7 +11,7 @@ module.exports = {
     const textChannel = await guild.channels.cache.get(
       `${interaction.channel_id}`
     )
-    const channel = member.voice.channel
+    const { channel } = member.voice
 
     const searchResult = await client.player
       .search(args[0], {

@@ -1,7 +1,7 @@
 const axios = require('axios')
 const { MessageEmbed, MessageAttachment } = require('discord.js')
 const { toBuffer } = require('qrcode')
-const env = require('../config')
+const { env } = require('../config')
 
 module.exports = {
   slash: true,
@@ -14,7 +14,7 @@ module.exports = {
 
     const result = await axios.post(env.PROMPTPAY_URL, {
       promptpay_id: number,
-      amount: amount
+      amount
     })
     const { PromptPay } = result.data
 

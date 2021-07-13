@@ -41,9 +41,6 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
   const oldUserChannel = oldMember.channel
 
   if (oldUserChannel === null && newUserChannel !== null) {
-    console.log(
-      `${newMember.member.displayName} has joined  ${newUserChannel.guild.name} (${newUserChannel.name})`
-    )
     if (memberSong) {
       const connection = await newUserChannel.join()
       const stream = ytdl(memberSong, {
@@ -58,10 +55,6 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
         connection.disconnect()
       })
     }
-  } else if (newUserChannel === null) {
-    console.log(
-      `${oldMember.member.displayName} has left ${oldUserChannel.guild.name} (${oldUserChannel.name})`
-    )
   }
 })
 

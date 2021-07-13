@@ -1,4 +1,5 @@
 const fs = require('fs')
+
 module.exports = {
   slash: true,
   description: 'เปลี่ยนเพลงเปิดตัว',

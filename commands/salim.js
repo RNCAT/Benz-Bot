@@ -4,6 +4,7 @@ const { MessageEmbed } = require('discord.js')
 module.exports = {
   slash: true,
   description: 'สุ่มประโยคสลิ่ม',
+  category: 'Funny',
   callback: async () => {
     const salim = await axios.get(
       'https://watasalim.vercel.app/api/quotes/random'

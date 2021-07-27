@@ -4,6 +4,7 @@ const { MessageEmbed } = require('discord.js')
 module.exports = {
   slash: true,
   description: 'สุ่มรูปหมา',
+  category: 'Funny',
   callback: async () => {
     const dogURL = 'https://dog.ceo/api/breeds/image/random'
     const nsfwURL = 'https://nekobot.xyz/api/image?type=hentai'

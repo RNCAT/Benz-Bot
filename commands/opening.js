@@ -5,6 +5,7 @@ module.exports = {
   description: 'เปลี่ยนเพลงเปิดตัว',
   minArgs: 1,
   expectedArgs: '<youtube_url>',
+  category: 'Funny',
   callback: async ({ args, interaction }) => {
     const songURL = args[0]
     const userID = interaction.member.user.id

@@ -8,6 +8,7 @@ module.exports = {
   description: 'สร้าง QR Code พร้อมเพย์',
   minArgs: 2,
   expectedArgs: '<number> <amount>',
+  category: 'Utils',
   callback: async ({ channel, args }) => {
     const number = args[0]
     const amount = Number(args[1])

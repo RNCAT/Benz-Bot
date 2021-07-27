@@ -3,6 +3,7 @@ module.exports = {
   description: 'เล่นเพลง',
   minArgs: 1,
   expectedArgs: '<youtube_url>',
+  category: 'Music',
   callback: async ({ args, client, interaction }) => {
     const guild = await client.guilds.cache.get(`${interaction.guild_id}`)
     const member = await guild.members.cache.get(

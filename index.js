@@ -7,7 +7,9 @@ const WOKCommands = require('wokcommands')
 const fs = require('fs')
 const { env, presence } = require('./config')
 
-const client = new Discord.Client()
+const client = new Discord.Client({
+  partials: ['MESSAGE', 'REACTION']
+})
 client.player = new Player(client)
 
 client.player.on('trackStart', (queue, track) => {
@@ -28,6 +30,20 @@ client.on('ready', async () => {
   })
 
   wokCommands.showWarns = false
+  wokCommands.setCategorySettings([
+    {
+      name: 'Funny',
+      emoji: '🎉'
+    },
+    {
+      name: 'Utils',
+      emoji: '💡'
+    },
+    {
+      name: 'Music',
+      emoji: '🎹'
+    }
+  ])
 
   client.user.setPresence(presence)
 })

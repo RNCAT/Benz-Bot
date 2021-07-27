@@ -8,6 +8,7 @@ module.exports = {
   description: 'ย่อลิงค์',
   minArgs: 1,
   expectedArgs: '<url>',
+  category: 'Utils',
   callback: async ({ args }) => {
     const longURL = args[0]
     const result = await axios.post(

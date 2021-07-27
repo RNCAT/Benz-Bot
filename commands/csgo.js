@@ -8,6 +8,7 @@ module.exports = {
   description: 'ตรวจสอบสถานะเกม CSGO',
   minArgs: 1,
   expectedArgs: '<steam_id>',
+  category: 'Utils',
   callback: async ({ args }) => {
     const steamID = args[0]
     const URL = `https://public-api.tracker.gg/v2/csgo/standard/profile/steam/${steamID}`

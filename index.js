@@ -26,10 +26,10 @@ client.player.on('queueEnd', (queue) => {
 
 client.on('ready', async () => {
   const wokCommands = new WOKCommands(client, {
-    commandsDir: 'commands'
+    commandsDir: 'commands',
+    showWarns: false
   })
 
-  wokCommands.showWarns = false
   wokCommands.setCategorySettings([
     {
       name: 'Funny',

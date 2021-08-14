@@ -7,7 +7,7 @@ module.exports = {
   category: 'Funny',
   callback: async () => {
     const dogURL = 'https://dog.ceo/api/breeds/image/random'
-    const nsfwURL = 'https://nekobot.xyz/api/image?type=hentai'
+    const nsfwURL = 'https://nekobot.xyz/api/image?type=pussy'
 
     const puppy = async () => {
       const { data } = await axios.get(dogURL)

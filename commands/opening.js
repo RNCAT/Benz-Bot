@@ -1,4 +1,5 @@
 const fs = require('fs')
+const opening = require('../opening.json')
 
 module.exports = {
   slash: true,
@@ -9,13 +10,10 @@ module.exports = {
   callback: async ({ args, interaction }) => {
     const songURL = args[0]
     const userID = interaction.member.user.id
-    const opening = fs.readFileSync('./opening.json', 'utf-8')
 
-    const openingData = JSON.parse(opening)
+    opening[`${userID}`] = songURL
 
-    openingData[`${userID}`] = songURL
-
-    fs.writeFileSync('./opening.json', JSON.stringify(openingData))
+    fs.writeFileSync('./opening.json', JSON.stringify(opening))
 
     return ':white_check_mark: พี่เบนซ์เซ็ทเพลงเปิดตัวให้แล้ว !'
   }

@@ -3,7 +3,7 @@ require('dotenv').config()
 const Discord = require('discord.js')
 const ytdl = require('ytdl-core-discord')
 const WOKCommands = require('wokcommands')
-const fs = require('fs')
+const opening = require('./opening.json')
 const { env, presence } = require('./config')
 
 const client = new Discord.Client({
@@ -35,9 +35,7 @@ client.on('ready', async () => {
 })
 
 client.on('voiceStateUpdate', async (oldMember, newMember) => {
-  const opening = fs.readFileSync('./opening.json', 'utf-8')
-  const openingData = JSON.parse(opening)
-  const memberSong = openingData[`${newMember.member.id}`]
+  const memberSong = opening[`${newMember.member.id}`]
 
   const newUserChannel = newMember.channel
   const oldUserChannel = oldMember.channel

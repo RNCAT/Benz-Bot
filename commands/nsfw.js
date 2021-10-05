@@ -3,18 +3,18 @@ const { MessageEmbed } = require('discord.js')
 
 module.exports = {
   slash: true,
-  description: 'สุ่มรูปหมา',
+  description: 'random a nsfw image.',
   category: 'Funny',
   callback: async () => {
-    const dogURL = 'https://dog.ceo/api/breeds/image/random'
+    const URL = 'https://nekobot.xyz/api/image?type=pgif'
 
-    const puppy = async () => {
-      const { data } = await axios.get(dogURL)
+    const nsfw = async () => {
+      const { data } = await axios.get(URL)
       return data.message
     }
 
     const title = ''
-    const image = await puppy()
+    const image = await nsfw()
     const color = 'GREEN'
 
     const embed = new MessageEmbed()

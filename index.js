@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 const Discord = require('discord.js')
-const ytdl = require('ytdl-core-discord')
+const ytdl = require('ytdl-core')
 const WOKCommands = require('wokcommands')
 const opening = require('./opening.json')
 const { env, presence } = require('./config')
@@ -43,13 +43,9 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
   if (oldUserChannel === null && newUserChannel !== null) {
     if (memberSong) {
       const connection = await newUserChannel.join()
-      const stream = ytdl(memberSong, {
-        quality: 'highestaudio',
-        opusEncoded: true
-      })
-      const dispatcher = connection.play(await stream, {
-        type: 'opus'
-      })
+
+      const stream = ytdl(memberSong, { quality: 18 })
+      const dispatcher = connection.play(stream)
 
       dispatcher.on('finish', () => {
         connection.disconnect()

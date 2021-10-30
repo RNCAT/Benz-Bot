@@ -44,7 +44,7 @@ client.on('voiceStateUpdate', async (oldMember, newMember) => {
     if (memberSong) {
       const connection = await newUserChannel.join()
 
-      const stream = ytdl(memberSong, { quality: 18 })
+      const stream = await ytdl(memberSong, { quality: 18 })
       const dispatcher = connection.play(stream)
 
       dispatcher.on('finish', () => {

@@ -9,8 +9,6 @@ const client = new DiscordJS.Client({
 })
 
 client.on('ready', () => {
-  console.log('Bot is running')
-
   new WOKCommands(client, {
     commandsDir: path.join(__dirname, 'commands'),
     typeScript: true,

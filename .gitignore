@@ -1,5 +1,6 @@
 # Packages
 node_modules/
+.yarn
 
 # Log files
 logs/

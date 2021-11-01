@@ -3,5 +3,3 @@ version: '3.8'
 services:
   benzbot:
     build: .
-    environment:
-      NODE_ENV: production

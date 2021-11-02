@@ -13,7 +13,7 @@ export default {
     const promptpay_id = args[0]
     const amount = Number(args[1])
     const API = String(process.env.PROMPTPAY_URL)
-    const imagePath = './images/qr.png'
+    const imagePath = './qr.png'
 
     const result = await axios.post(API, {
       promptpay_id,

@@ -1,6 +1,6 @@
-FROM node:14.18.0-alpine
+FROM node:16.13.0-alpine
 RUN mkdir /app
 ADD . /app
 WORKDIR /app
-RUN npm install -production
-CMD [ "node", "index.js" ]
+RUN npm install
+CMD [ "npm", "start" ]

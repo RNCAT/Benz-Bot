@@ -1,21 +1,23 @@
-const axios = require('axios')
-const { MessageEmbed } = require('discord.js')
+import { ICommand } from 'wokcommands'
+import { MessageEmbed } from 'discord.js'
+import axios from 'axios'
 
-module.exports = {
-  slash: true,
-  description: 'สุ่มประโยคสลิ่ม',
+export default {
   category: 'Funny',
+  description: 'Random a salim quote.',
+  slash: true,
+
   callback: async () => {
     const salim = await axios.get(
       'https://watasalim.vercel.app/api/quotes/random'
     )
-    const { body } = salim.data.quote
+    const quote: string = salim.data.quote.body
 
     const embed = new MessageEmbed()
       .setTitle('ประโยคสลิ่ม')
+      .setDescription(quote)
       .setColor('YELLOW')
-      .setDescription(body)
 
     return embed
-  }
-}
+  },
+} as ICommand

@@ -1,25 +1,25 @@
-require('dotenv').config()
-const axios = require('axios')
-const { MessageEmbed } = require('discord.js')
-const { env } = require('../config')
+import { ICommand } from 'wokcommands'
+import { MessageEmbed } from 'discord.js'
+import axios from 'axios'
 
-module.exports = {
+export default {
+  category: 'Utils',
+  description: 'Check CSGO status',
   slash: true,
-  description: 'ตรวจสอบสถานะเกม CSGO',
   minArgs: 1,
   expectedArgs: '<steam_id>',
-  category: 'Utils',
+
   callback: async ({ args }) => {
     const steamID = args[0]
     const URL = `https://public-api.tracker.gg/v2/csgo/standard/profile/steam/${steamID}`
 
-    const { data } = await axios.get(URL, {
+    const csgo = await axios.get(URL, {
       headers: {
-        'TRN-Api-Key': env.TRN_TOKEN
-      }
+        'TRN-Api-Key': String(process.env.TRN_TOKEN),
+      },
     })
 
-    const { platformInfo, segments } = data.data
+    const { platformInfo, segments } = csgo.data.data
     const {
       timePlayed,
       kills,
@@ -28,7 +28,7 @@ module.exports = {
       shotsAccuracy,
       bombsPlanted,
       bombsDefused,
-      mvp
+      mvp,
     } = segments[0].stats
 
     const embed = new MessageEmbed()
@@ -40,7 +40,7 @@ module.exports = {
         {
           name: 'เวลาเล่นทั้งหมด',
           value: timePlayed.displayValue,
-          inline: true
+          inline: true,
         },
         { name: 'ความแม่น', value: shotsAccuracy.displayValue },
         { name: 'Kills', value: kills.displayValue, inline: true },
@@ -48,21 +48,21 @@ module.exports = {
         {
           name: 'Headshots',
           value: headshots.displayValue,
-          inline: true
+          inline: true,
         },
         {
           name: 'วางระเบิด',
           value: bombsPlanted.displayValue,
-          inline: true
+          inline: true,
         },
         {
           name: 'กู้ระเบิด',
           value: bombsDefused.displayValue,
-          inline: true
+          inline: true,
         },
-        { name: 'MVP', value: mvp.displayValue, inline: true }
+        { name: 'MVP', value: mvp.displayValue, inline: true },
       ])
 
     return embed
-  }
-}
+  },
+} as ICommand

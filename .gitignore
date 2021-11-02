@@ -1,5 +1,9 @@
 # Packages
 node_modules/
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+.pnp.*
 
 # Log files
 logs/

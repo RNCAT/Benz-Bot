@@ -6,7 +6,6 @@ export default {
   category: 'Funny',
   description: 'Random a nsfw gif.',
   slash: true,
-  testOnly: true,
 
   callback: async () => {
     const nsfw = await axios.get('https://nekobot.xyz/api/image?type=pgif')

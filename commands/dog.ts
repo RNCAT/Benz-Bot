@@ -6,7 +6,6 @@ export default {
   category: 'Funny',
   description: 'Random a dog image.',
   slash: true,
-  testOnly: true,
 
   callback: async () => {
     const dog = await axios.get('https://dog.ceo/api/breeds/image/random')

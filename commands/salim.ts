@@ -6,7 +6,6 @@ export default {
   category: 'Funny',
   description: 'Random a salim quote.',
   slash: true,
-  testOnly: true,
 
   callback: async () => {
     const salim = await axios.get(

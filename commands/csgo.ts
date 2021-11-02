@@ -6,7 +6,6 @@ export default {
   category: 'Utils',
   description: 'Check CSGO status',
   slash: true,
-  testOnly: true,
   minArgs: 1,
   expectedArgs: '<steam_id>',
 

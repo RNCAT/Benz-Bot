@@ -6,7 +6,6 @@ export default {
   category: 'Utils',
   description: 'URL Shortener',
   slash: true,
-  testOnly: true,
   minArgs: 1,
   expectedArgs: '<url>',
 

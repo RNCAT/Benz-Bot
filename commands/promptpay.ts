@@ -6,7 +6,6 @@ export default {
   category: 'Utils',
   description: 'Create PromptPay QR Code.',
   slash: true,
-  testOnly: true,
   minArgs: 2,
   expectedArgs: '<number> <amount>',
 

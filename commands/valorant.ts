@@ -12,7 +12,10 @@ export default {
   callback: async ({ args }) => {
     const name = args[0]
     const tag = args[1]
-    const mmrURL = `https://api.henrikdev.xyz/valorant/v1/mmr-history/ap/${name}/${tag}`
+    const mmrURL = encodeURI(
+      `https://api.henrikdev.xyz/valorant/v1/mmr-history/ap/${name}/${tag}`
+    )
+
     const rankURL =
       'https://valorant-api.com/v1/competitivetiers/564d8e28-c226-3180-6285-e48a390db8b1'
 
@@ -56,6 +59,8 @@ export default {
 
       return embed
     } catch (error: any) {
+      console.error(error)
+
       const embed = new MessageEmbed()
         .setTitle('Valorant Ranking Status')
         .setColor('RED')

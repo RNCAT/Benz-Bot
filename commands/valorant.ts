@@ -60,12 +60,7 @@ export default {
         .setTitle('Valorant Ranking Status')
         .setColor('RED')
         .setURL('https://github.com/RNCAT')
-
-      if (error.response.status == 404) {
-        embed.setDescription('ไม่พบข้อมูล name หรือ tag นี้')
-      } else {
-        embed.setDescription(error.response.statusText)
-      }
+        .setDescription('ไม่พบข้อมูล name หรือ tag นี้')
 
       return embed
     }

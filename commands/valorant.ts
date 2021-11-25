@@ -3,69 +3,69 @@ import { MessageEmbed } from 'discord.js'
 import axios from 'axios'
 
 export default {
-  category: 'Utils',
-  description: 'Get the current Valorant season',
-  slash: true,
-  minArgs: 2,
-  expectedArgs: '<name> <tag>',
+    category: 'Utils',
+    description: 'Get the current Valorant season',
+    slash: true,
+    minArgs: 2,
+    expectedArgs: '<name> <tag>',
 
-  callback: async ({ args }) => {
-    const name = args[0]
-    const tag = args[1]
-    const mmrURL = encodeURI(
-      `https://api.henrikdev.xyz/valorant/v1/mmr-history/ap/${name}/${tag}`
-    )
+    callback: async ({ args }) => {
+        const name = args[0]
+        const tag = args[1]
+        const mmrURL = encodeURI(
+            `https://api.henrikdev.xyz/valorant/v1/mmr-history/ap/${name}/${tag}`
+        )
 
-    const rankURL =
-      'https://valorant-api.com/v1/competitivetiers/564d8e28-c226-3180-6285-e48a390db8b1'
+        const rankURL =
+            'https://valorant-api.com/v1/competitivetiers/564d8e28-c226-3180-6285-e48a390db8b1'
 
-    const embed = new MessageEmbed()
+        const embed = new MessageEmbed()
 
-    try {
-      const { data } = await axios.get(mmrURL)
-      const player = data.data[0]
+        try {
+            const { data } = await axios.get(mmrURL)
+            const player = data.data[0]
 
-      const ranks = await axios.get(rankURL)
-      const { tiers } = ranks.data.data
+            const ranks = await axios.get(rankURL)
+            const { tiers } = ranks.data.data
 
-      const tier: any = Object.values(tiers).find(
-        (obj: any) => obj.tier === player.currenttier
-      )
+            const tier: any = Object.values(tiers).find(
+                (obj: any) => obj.tier === player.currenttier
+            )
 
-      embed.setTitle('Valorant Ranking Status')
-      embed.setColor('GREEN')
-      embed.setThumbnail(tier.smallIcon)
-      embed.setFooter(`อัพเดทล่าสุด`)
-      embed.setURL('https://github.com/RNCAT')
-      embed.setTimestamp(player.date_raw)
-      embed.addFields([
-        { name: 'ชื่อ', value: name, inline: true },
-        { name: 'แท็ก', value: tag, inline: true },
-        {
-          name: 'แรงค์ล่าสุด',
-          value: `${player.currenttierpatched}`,
-          inline: false,
-        },
-        {
-          name: 'คะแนนแรงค์ล่าสุด',
-          value: `${player.ranking_in_tier}`,
-          inline: false,
-        },
-        {
-          name: 'ผลคะแนนเกมล่าสุด',
-          value: `${player.mmr_change_to_last_game}`,
-          inline: false,
-        },
-      ])
+            embed.setTitle('Valorant Ranking Status')
+            embed.setColor('GREEN')
+            embed.setThumbnail(tier.smallIcon)
+            embed.setFooter(`อัพเดทล่าสุด`)
+            embed.setURL('https://github.com/RNCAT')
+            embed.setTimestamp(player.date_raw)
+            embed.addFields([
+                { name: 'ชื่อ', value: name, inline: true },
+                { name: 'แท็ก', value: tag, inline: true },
+                {
+                    name: 'แรงค์ล่าสุด',
+                    value: `${player.currenttierpatched}`,
+                    inline: false,
+                },
+                {
+                    name: 'คะแนนแรงค์ล่าสุด',
+                    value: `${player.ranking_in_tier}`,
+                    inline: false,
+                },
+                {
+                    name: 'ผลคะแนนเกมล่าสุด',
+                    value: `${player.mmr_change_to_last_game}`,
+                    inline: false,
+                },
+            ])
 
-      return embed
-    } catch (error: any) {
-      embed.setTitle('Valorant Ranking Status')
-      embed.setColor('RED')
-      embed.setURL('https://github.com/RNCAT')
-      embed.setDescription('ไม่พบข้อมูล name หรือ tag นี้')
+            return embed
+        } catch (error: any) {
+            embed.setTitle('Valorant Ranking Status')
+            embed.setColor('RED')
+            embed.setURL('https://github.com/RNCAT')
+            embed.setDescription('ไม่พบข้อมูล name หรือ tag นี้')
 
-      return embed
-    }
-  },
+            return embed
+        }
+    },
 } as ICommand

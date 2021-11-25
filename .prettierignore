@@ -1,0 +1,9 @@
+.yarn/
+.vscode/
+.pnp.cjs
+.yarnrc.yml
+README.md
+docker-compose.yml
+package.json
+tsconfig.json
+.prettierrc.json

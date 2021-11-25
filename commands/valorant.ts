@@ -19,6 +19,8 @@ export default {
     const rankURL =
       'https://valorant-api.com/v1/competitivetiers/564d8e28-c226-3180-6285-e48a390db8b1'
 
+    const embed = new MessageEmbed()
+
     try {
       const { data } = await axios.get(mmrURL)
       const player = data.data[0]
@@ -30,42 +32,38 @@ export default {
         (obj: any) => obj.tier === player.currenttier
       )
 
-      const embed = new MessageEmbed()
-        .setTitle('Valorant Ranking Status')
-        .setColor('GREEN')
-        .setThumbnail(tier.smallIcon)
-        .setFooter(`อัพเดทล่าสุด`)
-        .setURL('https://github.com/RNCAT')
-        .setTimestamp(player.date_raw)
-        .addFields([
-          { name: 'ชื่อ', value: name, inline: true },
-          { name: 'แท็ก', value: tag, inline: true },
-          {
-            name: 'แรงค์ล่าสุด',
-            value: `${player.currenttierpatched}`,
-            inline: false,
-          },
-          {
-            name: 'คะแนนแรงค์ล่าสุด',
-            value: `${player.ranking_in_tier}`,
-            inline: false,
-          },
-          {
-            name: 'ผลคะแนนเกมล่าสุด',
-            value: `${player.mmr_change_to_last_game}`,
-            inline: false,
-          },
-        ])
+      embed.setTitle('Valorant Ranking Status')
+      embed.setColor('GREEN')
+      embed.setThumbnail(tier.smallIcon)
+      embed.setFooter(`อัพเดทล่าสุด`)
+      embed.setURL('https://github.com/RNCAT')
+      embed.setTimestamp(player.date_raw)
+      embed.addFields([
+        { name: 'ชื่อ', value: name, inline: true },
+        { name: 'แท็ก', value: tag, inline: true },
+        {
+          name: 'แรงค์ล่าสุด',
+          value: `${player.currenttierpatched}`,
+          inline: false,
+        },
+        {
+          name: 'คะแนนแรงค์ล่าสุด',
+          value: `${player.ranking_in_tier}`,
+          inline: false,
+        },
+        {
+          name: 'ผลคะแนนเกมล่าสุด',
+          value: `${player.mmr_change_to_last_game}`,
+          inline: false,
+        },
+      ])
 
       return embed
     } catch (error: any) {
-      console.error(error)
-
-      const embed = new MessageEmbed()
-        .setTitle('Valorant Ranking Status')
-        .setColor('RED')
-        .setURL('https://github.com/RNCAT')
-        .setDescription('ไม่พบข้อมูล name หรือ tag นี้')
+      embed.setTitle('Valorant Ranking Status')
+      embed.setColor('RED')
+      embed.setURL('https://github.com/RNCAT')
+      embed.setDescription('ไม่พบข้อมูล name หรือ tag นี้')
 
       return embed
     }

@@ -8,15 +8,21 @@ export default {
   slash: true,
 
   callback: async () => {
-    const salim = await axios.get(
-      'https://watasalim.vercel.app/api/quotes/random'
-    )
-    const quote: string = salim.data.quote.body
-
     const embed = new MessageEmbed()
-      .setTitle('ประโยคสลิ่ม')
-      .setDescription(quote)
-      .setColor('YELLOW')
+
+    try {
+      const salim = await axios.get(
+        'https://watasalim.vercel.app/api/quotes/random'
+      )
+      const quote: string = salim.data.quote.body
+
+      embed.setTitle('ประโยคสลิ่ม')
+      embed.setDescription(quote)
+      embed.setColor('YELLOW')
+    } catch (error) {
+      embed.setColor('RED')
+      embed.setDescription('มีข้อผิดพลาดกรุณาลองใหม่อีกครั้ง')
+    }
 
     return embed
   },

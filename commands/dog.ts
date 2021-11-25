@@ -8,9 +8,18 @@ export default {
   slash: true,
 
   callback: async () => {
-    const dog = await axios.get('https://dog.ceo/api/breeds/image/random')
+    const embed = new MessageEmbed()
 
-    const embed = new MessageEmbed().setImage(dog.data.message)
+    try {
+      const dog = await axios.get('https://dog.ceo/api/breeds/image/random')
+      embed.setColor('GREEN')
+      embed.setImage(dog.data.message)
+    } catch (error) {
+      embed.setColor('RED')
+      embed.setDescription('มีข้อผิดพลาดกรุณาลองใหม่อีกครั้ง')
+
+      return embed
+    }
 
     return embed
   },

@@ -12,30 +12,31 @@ export default {
   callback: async ({ args }) => {
     const steamID = args[0]
     const URL = `https://public-api.tracker.gg/v2/csgo/standard/profile/steam/${steamID}`
-
-    const csgo = await axios.get(URL, {
-      headers: {
-        'TRN-Api-Key': String(process.env.TRN_TOKEN),
-      },
-    })
-
-    const { platformInfo, segments } = csgo.data.data
-    const {
-      timePlayed,
-      kills,
-      deaths,
-      headshots,
-      shotsAccuracy,
-      bombsPlanted,
-      bombsDefused,
-      mvp,
-    } = segments[0].stats
-
     const embed = new MessageEmbed()
-      .setTitle('CSGO Player Status')
-      .setColor('GREEN')
-      .setThumbnail(platformInfo.avatarUrl)
-      .addFields([
+
+    try {
+      const csgo = await axios.get(URL, {
+        headers: {
+          'TRN-Api-Key': String(process.env.TRN_TOKEN),
+        },
+      })
+
+      const { platformInfo, segments } = csgo.data.data
+      const {
+        timePlayed,
+        kills,
+        deaths,
+        headshots,
+        shotsAccuracy,
+        bombsPlanted,
+        bombsDefused,
+        mvp,
+      } = segments[0].stats
+
+      embed.setTitle('CSGO Player Status')
+      embed.setColor('GREEN')
+      embed.setThumbnail(platformInfo.avatarUrl)
+      embed.addFields([
         { name: 'ชื่อ', value: platformInfo.platformUserHandle, inline: true },
         {
           name: 'เวลาเล่นทั้งหมด',
@@ -62,6 +63,12 @@ export default {
         },
         { name: 'MVP', value: mvp.displayValue, inline: true },
       ])
+    } catch (error) {
+      embed.setColor('RED')
+      embed.setDescription('ไม่พบ username นี้กรุณาลองใหม่อีกครั้ง')
+
+      return embed
+    }
 
     return embed
   },

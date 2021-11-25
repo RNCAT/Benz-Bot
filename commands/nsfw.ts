@@ -17,9 +17,16 @@ export default {
       return embed
     }
 
-    const nsfw = await axios.get('https://nekobot.xyz/api/image?type=pgif')
+    try {
+      const nsfw = await axios.get('https://nekobot.xyz/api/image?type=pgif')
+      embed.setColor('GREEN')
+      embed.setImage(nsfw.data.message)
+    } catch (error) {
+      embed.setColor('RED')
+      embed.setDescription('มีข้อผิดพลาดกรุณาลองใหม่อีกครั้ง')
 
-    embed.setImage(nsfw.data.message)
+      return embed
+    }
 
     return embed
   },

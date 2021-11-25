@@ -12,6 +12,7 @@ export default {
   callback: async ({ args }) => {
     const username = args[0]
     const URL = 'https://instagram40.p.rapidapi.com/account-info'
+    const embed = new MessageEmbed()
 
     try {
       const { data } = await axios.get(URL, {
@@ -25,37 +26,35 @@ export default {
         },
       })
 
-      const embed = new MessageEmbed()
-        .setTitle('Instagram Tracker')
-        .setColor('LUMINOUS_VIVID_PINK')
-        .setThumbnail(data.profile_pic_url)
-        .setURL('https://github.com/RNCAT')
-        .addFields([
-          { name: 'Username', value: data.username, inline: true },
-          {
-            name: 'Fullname',
-            value: data.full_name ? data.full_name : 'ไม่มี',
-            inline: true,
-          },
-          { name: 'Bio', value: data.biography, inline: false },
-          {
-            name: 'Followers',
-            value: `${data.edge_followed_by.count}`,
-            inline: true,
-          },
-          {
-            name: 'Following',
-            value: `${data.edge_follow.count}`,
-            inline: true,
-          },
-        ])
+      embed.setTitle('Instagram Tracker')
+      embed.setColor('LUMINOUS_VIVID_PINK')
+      embed.setThumbnail(data.profile_pic_url)
+      embed.setURL('https://github.com/RNCAT')
+      embed.addFields([
+        { name: 'Username', value: data.username, inline: true },
+        {
+          name: 'Fullname',
+          value: data.full_name ? data.full_name : 'ไม่มี',
+          inline: true,
+        },
+        { name: 'Bio', value: data.biography, inline: false },
+        {
+          name: 'Followers',
+          value: `${data.edge_followed_by.count}`,
+          inline: true,
+        },
+        {
+          name: 'Following',
+          value: `${data.edge_follow.count}`,
+          inline: true,
+        },
+      ])
 
       return embed
     } catch (error) {
-      const embed = new MessageEmbed()
-        .setTitle('Instagram Tracker')
-        .setColor('RED')
-        .setDescription('ไม่พบ username หรือมีข้อผิดพลาดบางอย่างนะจ๊ะ')
+      embed.setTitle('Instagram Tracker')
+      embed.setColor('RED')
+      embed.setDescription('ไม่พบ username หรือมีข้อผิดพลาดบางอย่างนะจ๊ะ')
       return embed
     }
   },

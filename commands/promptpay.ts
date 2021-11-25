@@ -1,4 +1,5 @@
 import { ICommand } from 'wokcommands'
+import { MessageEmbed } from 'discord.js'
 import axios from 'axios'
 import { toFile } from 'qrcode'
 
@@ -15,21 +16,29 @@ export default {
     const API = String(process.env.PROMPTPAY_URL)
     const imagePath = './qr.png'
 
-    const result = await axios.post(API, {
-      promptpay_id,
-      amount,
-    })
+    try {
+      const result = await axios.post(API, {
+        promptpay_id,
+        amount,
+      })
 
-    await toFile(imagePath, result.data.PromptPay)
+      await toFile(imagePath, result.data.PromptPay)
 
-    channel.send({
-      files: [
-        {
-          attachment: imagePath,
-          name: 'qr.png',
-        },
-      ],
-    })
+      channel.send({
+        files: [
+          {
+            attachment: imagePath,
+            name: 'qr.png',
+          },
+        ],
+      })
+    } catch (error) {
+      const embed = new MessageEmbed()
+      embed.setColor('RED')
+      embed.setDescription('มีข้อผิดพลาดกรุณาลองใหม่อีกครั้ง')
+
+      return embed
+    }
 
     return `เลขพร้อมเพย์ : ${promptpay_id}\nจำนวนเงิน : ${amount}`
   },

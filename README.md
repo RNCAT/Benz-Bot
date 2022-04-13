@@ -16,7 +16,10 @@
 `/valorant <name> <tag>` 
 
 - เช็คสถานะเกม CSGO  
-`/csgo <Steam id | Steam custom URL>`  *ต้องตั้ง steam profile เป็นสาธารณะก่อน*
+`/csgo <steam id | steam custom URL>`  *ต้องตั้ง steam profile เป็นสาธารณะก่อน*
+
+- เช็คสถานะเกม Apex legends  
+`/apex <username>`  *ต้องเชื่อมต่อ origin กับ steam*
 
 - เช็คสถานะ Instagram  
 `/ig <username>`

@@ -1,7 +1,7 @@
 import { ICommand } from 'wokcommands'
 import { MessageEmbed } from 'discord.js'
-import axios from 'axios'
-import { toFile } from 'qrcode'
+import generatePayload from 'promptpay-qr'
+import { toBuffer } from 'qrcode'
 
 export default {
     category: 'Utils',
@@ -13,25 +13,12 @@ export default {
     callback: async ({ args, channel }) => {
         const promptpay_id = args[0]
         const amount = Number(args[1])
-        const API = String(process.env.PROMPTPAY_URL)
-        const imagePath = './qr.png'
 
         try {
-            const result = await axios.post(API, {
-                promptpay_id,
-                amount,
-            })
+            const payload = generatePayload(promptpay_id, { amount })
+            const buffer = await toBuffer(payload)
 
-            await toFile(imagePath, result.data.PromptPay)
-
-            channel.send({
-                files: [
-                    {
-                        attachment: imagePath,
-                        name: 'qr.png',
-                    },
-                ],
-            })
+            channel.send({ files: [{ attachment: buffer, name: 'qrcode.png' }] })
         } catch (error) {
             const embed = new MessageEmbed()
             embed.setColor('RED')

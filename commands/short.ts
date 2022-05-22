@@ -11,25 +11,19 @@ export default {
 
     callback: async ({ args }) => {
         const longURL = args[0]
+        const bitlyAPI = 'https://api-ssl.bitly.com/v4/shorten'
         const embed = new MessageEmbed()
 
         try {
             const shortURL = await axios.post(
-                'https://api.rebrandly.com/v1/links',
-                {
-                    destination: longURL,
-                },
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        apikey: String(process.env.REBRANDLY_TOKEN),
-                    },
-                }
+                bitlyAPI,
+                { long_url: longURL },
+                { headers: { Authorization: `Bearer ${process.env.BITLY_APIKEY}` } }
             )
 
-            const { shortUrl } = shortURL.data
+            const { link } = shortURL.data
             embed.setColor('GREEN')
-            embed.addField('ลิงก์ที่ย่อ', `https://${shortUrl}`)
+            embed.addField('ลิงก์ที่ย่อ', link)
         } catch (error) {
             embed.setColor('RED')
             embed.setDescription('URL ไม่ถูกต้องกรุณาลองใหม่อีกครั้ง')

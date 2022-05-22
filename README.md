@@ -21,9 +21,6 @@
 - เช็คสถานะเกม Apex legends  
 `/apex <username>`  *ต้องเชื่อมต่อ origin กับ steam*
 
-- เช็คสถานะ Instagram  
-`/ig <username>`
-
 - สร้าง QR Code พร้อมเพย์  
 `/promptpay <เบอร์พร้อมเพย์> <จำนวนเงิน>`
 

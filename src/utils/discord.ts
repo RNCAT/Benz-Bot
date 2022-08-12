@@ -3,10 +3,12 @@ import path from 'node:path'
 import fs from 'node:fs'
 import { CommandsCollection, Command } from '../types/discord'
 
-function getClientCommands(): CommandsCollection {
+function getClientCommands(isProd: boolean): CommandsCollection {
+  const extensionName = isProd ? '.js' : '.ts'
+
   const clientCommands: CommandsCollection = new Collection()
-  const commandsPath = path.join(__dirname, '../commands')
-  const commandFiles = fs.readdirSync(commandsPath).filter((file) => file.endsWith('.ts'))
+  const commandsPath = path.join(__dirname, '../commands/')
+  const commandFiles = fs.readdirSync(commandsPath).filter((file) => file.endsWith(extensionName))
 
   for (const file of commandFiles) {
     const filePath = path.join(commandsPath, file)

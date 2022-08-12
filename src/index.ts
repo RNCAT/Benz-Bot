@@ -8,7 +8,7 @@ const client = new Client({
   intents: config.discord.intents,
 })
 
-const clientCommands = discord.getClientCommands()
+const clientCommands = discord.getClientCommands(config.environments.isProd)
 
 client.once('ready', () => {
   console.log(clientCommands)

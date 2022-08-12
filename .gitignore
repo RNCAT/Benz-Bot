@@ -1,23 +1,6 @@
-# Packages
-node_modules/
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
+/node_modules
+/dist
+/coverage
 
-# Log files
-logs/
-*.log
-
-# Miscellaneous
-.tmp/
-.idea/
-docs/docs.json
-typings/index.js
-.DS_Store
-
-# Environments
 .env
+.DS_Store

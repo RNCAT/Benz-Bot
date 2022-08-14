@@ -1,9 +1,8 @@
 import { GatewayIntentBits } from 'discord.js'
 
 const discord = {
-  token: process.env.DISCORD_TOKEN,
-  appId: process.env.DISCORD_APP_ID,
-  guildId: process.env.DISCORD_GUILD_ID,
+  token: process.env.DISCORD_TOKEN || '',
+  appId: process.env.DISCORD_APP_ID || '996036488099803258',
   intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMessages,

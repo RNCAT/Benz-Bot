@@ -1,6 +1,10 @@
-version: '3.8'
-
+version: "3.7"
 services:
-  benzbot:
+  benz-bot:
+    build:
+      context: .
     container_name: benz-bot
-    build: .
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - ./.env

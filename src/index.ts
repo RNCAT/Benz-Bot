@@ -1,5 +1,4 @@
 import 'dotenv/config'
-import { createServer, IncomingMessage, ServerResponse, Server } from 'http'
 import { Client, BaseInteraction } from 'discord.js'
 
 import config from './config'
@@ -7,14 +6,6 @@ import discord from './utils/discord'
 
 const client = new Client({ intents: config.discord.intents })
 const { clientCommands, clientCommandsJSON } = discord.getClientCommands(config.environments.isProd)
-
-const server: Server = createServer((req: IncomingMessage, res: ServerResponse) => {
-  res.end('OK')
-})
-
-server.listen(8080, () => {
-  console.log('Server is running')
-})
 
 client.once('ready', async () => {
   await discord.updateClientCommands(clientCommandsJSON)

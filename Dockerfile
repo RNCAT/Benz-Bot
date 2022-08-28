@@ -5,7 +5,7 @@ COPY package.json ./
 COPY pnpm-lock.yaml ./
 COPY . .
 RUN corepack enable
-RUN corepack prepare pnpm@7.9.1 --activate
+RUN corepack prepare pnpm@7.9.5 --activate
 RUN pnpm install
 RUN pnpm build
 RUN pnpm prune --prod
@@ -14,5 +14,4 @@ ENV NODE_ENV production
 FROM node:16-alpine AS production
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/dist ./dist
-EXPOSE 8080
 CMD [ "node", "dist/index.js" ]

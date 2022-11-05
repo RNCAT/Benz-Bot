@@ -28,11 +28,7 @@ export default {
       const embed = new EmbedBuilder()
         .setTitle('URL Shortener')
         .setColor('Green')
-        .setImage(data.link)
-        .addFields([
-          { name: 'Long URL', value: longURL },
-          { name: 'Short URL', value: data.link },
-        ])
+        .setDescription(data?.link)
 
       await interaction.editReply({ content: null, embeds: [embed] })
     } catch (error) {

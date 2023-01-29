@@ -4,7 +4,7 @@ COPY package.json ./
 COPY pnpm-lock.yaml ./
 COPY . .
 RUN corepack enable
-RUN corepack prepare pnpm@7.14.2 --activate
+RUN corepack prepare pnpm@7.26.2 --activate
 RUN pnpm install
 RUN pnpm build
 RUN pnpm prune --prod
